@@ -1,0 +1,26 @@
+{
+    "name": "dam1r89/laravel-code-quality",
+    "description": "Set of commands that help maintaining code quality in Laravel projects.",
+    "type": "library",
+    "require": {
+        "friendsofphp/php-cs-fixer": "^2.7"
+    },
+    "authors": [
+        {
+            "name": "Damir Miladinov",
+            "email": "damir89@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "dam1r89\\CodeQuality\\": ""
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "dam1r89\\CodeQuality\\ServiceProvider"
+            ]
+        }
+    }
+}
