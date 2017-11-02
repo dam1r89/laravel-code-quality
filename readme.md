@@ -1,4 +1,10 @@
-Set of commands that help maintaining code quality in Laravel projects.
+# Set of commands that help maintaining code quality in Laravel projects.
+
+## Installation
+
+	composer require dam1r89/laravel-code-quality
+
+## About
 
 Intended for Laravel type of projects with **VueJS** on frontend. Relys on `phpunit` for testing code before commit, 
 `php-cs-fixer` and `es-lint` to lint/fix the code and `git` to install **precommit** hook.
@@ -20,3 +26,4 @@ Runs php-cs-fixer fix and eslint fix commands
 Manually run lint
 
 	php artisan code:lint
+
