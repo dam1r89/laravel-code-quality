@@ -3,7 +3,7 @@
     "description": "Set of commands that help maintaining code quality in Laravel projects.",
     "type": "library",
     "require": {
-        "friendsofphp/php-cs-fixer": "^2.7"
+        "friendsofphp/php-cs-fixer": "2.*"
     },
     "authors": [
         {

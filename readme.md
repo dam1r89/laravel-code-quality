@@ -2,7 +2,7 @@
 
 ## Installation
 
-	composer require dam1r89/laravel-code-quality
+	composer require --dev dam1r89/laravel-code-quality
 
 ## About
 
