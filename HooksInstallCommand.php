@@ -24,6 +24,7 @@ class HooksInstallCommand extends Command
         }
 
         file_put_contents($dir.'/.git/hooks/pre-commit', "export PATH=/usr/local/bin:\$PATH\nphp artisan code:lint");
+        exec("chmod +x $dir/.git/hooks/pre-commit");
         $this->info('Installed lint on pre commit.');
 
         $phpCsFixer = $dir.'/.php_cs.dist';

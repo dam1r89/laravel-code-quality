@@ -6,31 +6,24 @@ use Illuminate\Console\Command;
 
 class CodeLintCommand extends Command
 {
-    protected $signature = 'code:lint';
+    protected $signature = 'code:lint {--skip-eslint} {--skip-phpunit} {--skip-cs}';
 
     protected $description = 'Lint the code';
 
     public function handle()
     {
-        exec('git diff --name-only --cached --diff-filter=ACMRTUXB | xargs php ./vendor/bin/php-cs-fixer fix -v --dry-run --stop-on-violation --path-mode=intersection --config=.php_cs.dist  --using-cache=no', $out, $status);
-
-        foreach ($out as $line) {
-            echo $line."\n";
+        if (!$this->option('skip-cs')) {
+            passthru('git diff --name-only --cached --diff-filter=ACMRTUXB | xargs php ./vendor/bin/php-cs-fixer fix -v --dry-run --stop-on-violation --path-mode=intersection --config=.php_cs.dist  --using-cache=no', $status);
         }
 
-        exec('./vendor/bin/phpunit', $out, $status2);
-
-        foreach ($out as $line) {
-            echo $line."\n";
+        if (!$this->option('skip-phpunit')) {
+            passthru('./vendor/bin/phpunit --stop-on-failure', $status2);
         }
 
-        exec("./node_modules/eslint/bin/eslint.js `git diff --name-only --cached --diff-filter=AM HEAD | grep '^resources/assets/js.*\.\(vue\|js\)\$'`", $out, $status3);
-
-        foreach ($out as $line) {
-            echo $line."\n";
+        if (!$this->option('skip-eslint')) {
+            passthru("./node_modules/eslint/bin/eslint.js `git diff --name-only --cached --diff-filter=AM HEAD | grep '^resources/assets/js.*\.\(vue\|js\)\$'`", $status3);
         }
-
-        $output = $status || $status2 || $status3;
+        $output = ($status ?? 0) || ($status2 ?? 0) || ($status3 ?? 0);
         if ($output) {
             $this->error('Not successful');
         } else {
